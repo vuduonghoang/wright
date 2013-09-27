@@ -19,7 +19,7 @@ JHtml::_('behavior.tooltip');
 JHtml::_('behavior.framework');
 ?>
 
-	
+
 	<?php if ($params->get('show_title') || $this->item->state == 0 || ($params->get('show_author') && !empty($this->item->author ))) : ?>
 		<div class="page-header">
 		<?php if ($params->get('show_title')) : ?>
@@ -53,7 +53,7 @@ JHtml::_('behavior.framework');
 		<?php endif; ?>
 		</div>
 	<?php endif; ?>
-	
+
 	<?php if ($params->get('show_print_icon') || $params->get('show_email_icon') || $canEdit) : ?>
 	<div class="pull-right">
 		<ul class="btn-group actions">
@@ -84,8 +84,8 @@ JHtml::_('behavior.framework');
 				<dd>
 					<div class="parent-category-name">
 						<?php $title = $this->escape($this->item->parent_title);
-						$url = '<a href="'.JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->parent_slug)) . '">' . $title . '</a>';?>
-						<?php if ($params->get('link_parent_category') && !empty($this->item->parent_slug)) : ?>
+						$url = '<a href="'.JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->parent_id)) . '">' . $title . '</a>';?>
+						<?php if ($params->get('link_parent_category') && !empty($this->item->parent_id)) : ?>
 							<?php echo JText::sprintf('COM_CONTENT_PARENT', $url); ?>
 						<?php else : ?>
 							<?php echo JText::sprintf('COM_CONTENT_PARENT', $title); ?>
@@ -97,8 +97,8 @@ JHtml::_('behavior.framework');
 				<dd>
 					<div class="category-name">
 						<?php $title = $this->escape($this->item->category_title);
-						$url = '<a href="' . JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->catslug)) . '">' . $title . '</a>';?>
-						<?php if ($params->get('link_category') && $this->item->catslug) : ?>
+						$url = '<a href="' . JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->catid)) . '">' . $title . '</a>';?>
+						<?php if ($params->get('link_category') && $this->item->catid) : ?>
 							<?php echo JText::sprintf('COM_CONTENT_CATEGORY', $url); ?>
 						<?php else : ?>
 							<?php echo JText::sprintf('COM_CONTENT_CATEGORY', $title); ?>
