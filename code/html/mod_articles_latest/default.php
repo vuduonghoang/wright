@@ -1,11 +1,19 @@
 <?php
-
-/*
- * You can change this to a normal override. This is just in place to help manage
- * the default set of overrides we have in our template framework.
+/**
+ * @package     Joomla.Site
+ * @subpackage  mod_articles_latest
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-$app = JFactory::getApplication();
-
-require_once(JPATH_THEMES.'/'.$app->getTemplate().'/'.'wright'.'/'.'html'.'/'.'overrider.php');
-require(Overrider::getOverride('mod_articles_latest'));
+defined('_JEXEC') or die;
+?>
+<ul class="latestnews<?php echo $moduleclass_sfx; ?>">
+<?php foreach ($list as $item) :  ?>
+	<li>
+		<a href="<?php echo $item->link; ?>">
+			<?php echo $item->title; ?></a>
+	</li>
+<?php endforeach; ?>
+</ul>

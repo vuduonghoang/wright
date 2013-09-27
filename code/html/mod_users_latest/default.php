@@ -1,11 +1,20 @@
 <?php
-
-/*
- * You can change this to a normal override. This is just in place to help manage
- * the default set of overrides we have in our template framework.
+/**
+ * @package     Joomla.Site
+ * @subpackage  mod_users_latest
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-$app = JFactory::getApplication();
-
-require_once(JPATH_THEMES.'/'.$app->getTemplate().'/'.'wright'.'/'.'html'.'/'.'overrider.php');
-require(Overrider::getOverride('mod_users_latest'));
+defined('_JEXEC') or die;
+?>
+<?php if (!empty($names)) : ?>
+	<ul class="latestusers<?php echo $moduleclass_sfx ?>" >
+	<?php foreach($names as $name) : ?>
+		<li>
+			<?php echo $name->username; ?>
+		</li>
+	<?php endforeach;  ?>
+	</ul>
+<?php endif; ?>

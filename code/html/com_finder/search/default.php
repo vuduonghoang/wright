@@ -1,17 +1,41 @@
 <?php
 /**
- * @version		$Id: default.php 22355 2011-11-07 05:11:58Z github_bot $
- * @package		Joomla.Site
- * @subpackage	mod_menu
- * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_finder
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-// No direct access.
 defined('_JEXEC') or die;
 
-$app = JFactory::getApplication();
-
-require_once(JPATH_THEMES.'/'.$app->getTemplate().'/'.'wright'.'/'.'html'.'/'.'overrider.php');
-include(Overrider::getOverride('com_finder.search'));
+JHtml::_('behavior.framework');
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+JHtml::stylesheet('com_finder/finder.css', false, true, false);
 ?>
+
+<div class="finder<?php echo $this->pageclass_sfx; ?>">
+<?php if ($this->params->get('show_page_heading')) : ?>
+<h1>
+	<?php if ($this->escape($this->params->get('page_heading'))) : ?>
+		<?php echo $this->escape($this->params->get('page_heading')); ?>
+	<?php else : ?>
+		<?php echo $this->escape($this->params->get('page_title')); ?>
+	<?php endif; ?>
+</h1>
+<?php endif; ?>
+
+<?php if ($this->params->get('show_search_form', 1)): ?>
+	<div id="search-form">
+		<?php echo $this->loadTemplate('form'); ?>
+	</div>
+<?php endif;
+
+// Load the search results layout if we are performing a search.
+if ($this->query->search === true):
+?>
+	<div id="search-results">
+		<?php echo $this->loadTemplate('results'); ?>
+	</div>
+<?php endif; ?>
+</div>

@@ -20,22 +20,49 @@ class WrightAdapterJoomlaLogo
 	public function renderCompanion($name, $args, $width, $alt = false) {
 		$doc = Wright::getInstance();
 
+        if($doc->browser->isMobile())
+        {
+            $hiddenmodule = $doc->params->get('hiddenmodule');
+
+            $modules = JModuleHelper::getModules($name);
+
+            foreach($modules as $module)
+            {
+                if(in_array($module->id, $hiddenmodule))
+                {
+                    $module->position = 'hiddenmodule';
+                }
+            }
+        }
+
 		if ($name == 'menu') {
 			return '
 				<nav id="'.$name.($alt ? '_alt' : '_primary') .'" class="clearfix">
 					<div class="navbar ' . $args['menuWrapClass'] . '">
 						<div class="navbar-inner">
-							<div class="container">
-					            <a class="btn btn-navbar" data-toggle="collapse" data-target="#nav-'.$name.'">
-						            <span class="icon-bar"></span>
-						            <span class="icon-bar"></span>
-						            <span class="icon-bar"></span>
-					            </a>
-					            <div class="nav-collapse" id="nav-'.$name.'">
-									 <jdoc:include type="modules" name="'.$name.'" style="raw" />
-								</div>
+				            <a class="btn btn-navbar collapsed" data-toggle="collapse" data-target="#nav-'.$name.'">
+					            <span class="icon-bar"></span>
+					            <span class="icon-bar"></span>
+					            <span class="icon-bar"></span>
+				            </a>
+				            <div class="nav-collapse" id="nav-'.$name.'">
+								 <jdoc:include type="modules" name="'.$name.'" style="raw" />
 							</div>
 						</div>
+					</div>
+				</nav>
+			';
+		}
+		elseif ($name == 'toolbar') {
+			return '
+				<nav id="'.$name.($alt ? '_alt' : '_primary') .'" class="clearfix">
+		            <a class="btn btn-navbar collapsed" data-toggle="collapse" data-target="#nav-'.$name.'">
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+		            </a>
+		            <div class="nav-collapse" id="nav-'.$name.'">
+						 <jdoc:include type="modules" name="'.$name.'" style="raw" />
 					</div>
 				</nav>
 			';
@@ -51,6 +78,8 @@ class WrightAdapterJoomlaLogo
 
 	public function render($args)
 	{
+		$uniquePosition = false;
+
 		if (!isset($args['name'])) $args['name'] = 'newsflash';
 		if (!isset($args['style'])) $args['style'] = 'xhtml';
 
@@ -84,7 +113,7 @@ class WrightAdapterJoomlaLogo
 			$modulewidth2 = floor($modulewidth/2);
 			$modulewidth = ceil($modulewidth/2);
 			$logowidth = 12 - $modulewidth - $modulewidth2;
-			
+
 			if ($doc->document->params->get('logowidth') !== '12' && ($doc->countModules($modulename) || $doc->countModules($module2name))) {
 				$html .= '<div id="'.$modulename.'" class="span'.$modulewidth.'">';
 				$html .= $this->renderCompanion($modulename,$args,$modulewidth);
@@ -95,6 +124,16 @@ class WrightAdapterJoomlaLogo
 		else {
 			$modulename2 = $modulename;
 			$module2name2 = $module2name;
+			$uniquePosition = true;
+		}
+
+		// Toolbar opening
+		if ($uniquePosition && $modulename2 == "toolbar") {
+			$html .= '		
+				<div class="navbar ' . $args['menuWrapClass'] . '">
+					<div class="navbar-inner">
+						<div class="' . $args['containerClass'] . '">
+							<div class="' . $args['rowClass'] . '">';
 		}
 
 
@@ -152,9 +191,7 @@ class WrightAdapterJoomlaLogo
 		else {
 			$logo = JURI::root().'images/'.$doc->document->params->get('logo', 'logo.png');
 		}
-
-
-
+		
 		$html .= '<div id="logo" class="span'.$logowidth.'"><a href="'.JURI::root().'" class="image">'.$title.'<img src="'.$logo.'" alt="" title="" /></a></div>';
 		
 		if ($doc->document->params->get('logowidth') !== '12' && ($doc->countModules($modulename2) || $doc->countModules($module2name2))) {
@@ -163,6 +200,17 @@ class WrightAdapterJoomlaLogo
 			$html .= $this->renderCompanion($module2name2,$args,$modulewidth2,true);
 			$html .= '</div>';
 		}
+		
+		// Toolbar closure
+		if ($uniquePosition && $modulename2 == "toolbar") {
+			$html .= '
+							</div>
+						</div>
+					</div>
+				</div>';
+		}
+
+
 		
 		return $html;
 	}
