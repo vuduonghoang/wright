@@ -5,7 +5,7 @@
  * @package        Template
  *
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -59,14 +59,16 @@ if ($this->countModules('toolbar'))
 			<!-- menu -->
 			<w:nav name="menu" />
 		<?php endif; ?>
-		<!-- featured -->
+
 		<?php if ($this->countModules('featured')) : ?>
+			<!-- featured -->
 			<div id="featured">
 				<w:module type="none" name="featured" chrome="xhtml" />
 			</div>
 		<?php endif; ?>
-		<!-- grid-top -->
+
 		<?php if ($this->countModules('grid-top')) : ?>
+			<!-- grid-top -->
 			<div id="grid-top">
 				<w:module type="<?php echo $gridMode; ?>" name="grid-top" chrome="popover" extra="top"  />
 			</div>
@@ -126,9 +128,6 @@ if ($this->countModules('toolbar'))
 			<!-- bottom-menu -->
 			<w:nav containerClass="<?php echo $containerClass ?>" rowClass="<?php echo $gridMode; ?>" name="bottom-menu" />
 		<?php endif; ?>
-
-
-
 	</div>
 
 	<!-- footer -->
