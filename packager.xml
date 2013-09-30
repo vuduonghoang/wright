@@ -52,8 +52,15 @@
 
     <target name="build" depends="prepare">
 
+        <filterchain id="version">
+            <replaceregexp>
+             <regexp pattern="%%version%%" replace="${tpl.version}" ignoreCase="true" />
+            </replaceregexp>
+        </filterchain>
+
         <echo msg="Copying COMPONENT folder to build directory..." />
         <copy todir="${targetdir}">
+            <filterchain refid="version" />
             <fileset dir="${extpath}">
                 <include name="**" />
                 <exclude name=".*" />

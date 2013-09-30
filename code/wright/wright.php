@@ -57,7 +57,7 @@ class Wright
 
 	public $browser;
 
-	public $revision = "1.1";
+	public $revision = "%%version%%";
 
 	private $loadBootstrap = false;
 

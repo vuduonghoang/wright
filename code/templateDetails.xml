@@ -8,7 +8,7 @@
 	<authorUrl>http://www.redcomponent.com</authorUrl>
 	<copyright>Copyright redComponent 2013. All rights reserved</copyright>
 	<license>GNU GPLv2</license>
-	<version>1.1</version>
+	<version>%%version%%</version>
     <description>TPL_REDCOMPONENT_XML_DESCRIPTION</description>
 
 	<files>

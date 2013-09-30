@@ -6,7 +6,7 @@
 <project name="redComponent" default="site" basedir=".">
     <!-- Do initialization stuff -->
     <target name="prepare" >
-        <property file="build.properties"  override="true"/>
+        <property file="build.properties" override="true"/>
         <if>
             <equals arg1="${extension}" arg2="" />
             <then>
@@ -19,9 +19,16 @@
 
     <target name="site" description="Copies files to a existing joomla site" depends="prepare">
 
+        <filterchain id="version">
+            <replaceregexp>
+             <regexp pattern="%%version%%" replace="${tpl.version}" ignoreCase="true" />
+            </replaceregexp>
+        </filterchain>
+
         <!-- Component -->
         <echo message="Copying template..." />
         <copy todir="${www.dir}/templates/${tpl.name}" overwrite="true">
+            <filterchain refid="version" />
             <fileset dir="${src}">
                 <exclude name="language/**"/>
             </fileset>
