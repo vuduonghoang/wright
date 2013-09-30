@@ -9,7 +9,7 @@ class WrightAdapterJoomlaModule
         $wr = Wright::getInstance();
         if($wr->browser->isMobile())
         {
-            $hiddenmodule = $wr->params->get('hiddenmodule');
+            $hiddenmodule = $wr->params->get('hiddenmodule', array());
 
             $modules = JModuleHelper::getModules($args['name']);
 
