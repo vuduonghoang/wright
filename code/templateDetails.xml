@@ -88,12 +88,6 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="wright_bootstrap_images" type="list" default="" label="TPL_REDCOMPONENT_BOOTSTRAP_IMAGES" description="TPL_REDCOMPONENT_BOOTSTRAP_IMAGES_DESC">
-					<option value="">TPL_REDCOMPONENT_NONE</option>
-					<option value="img-rounded">TPL_REDCOMPONENT_BOOTSTRAP_IMAGES_ROUNDED</option>
-					<option value="img-circle">TPL_REDCOMPONENT_BOOTSTRAP_IMAGES_CIRCLE</option>
-					<option value="img-polaroid">TPL_REDCOMPONENT_BOOTSTRAP_IMAGES_POLAROID</option>
-				</field>
                 <!-- End of default Wright params -->
 
 				<field name="hiddenmodule" type="Modules" multiple="true" size="20" label="Hidden modules in phone" description="Hidden modules in phone" />
