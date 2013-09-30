@@ -142,43 +142,26 @@ class Wright
 
 	public function header()
 	{
-		// Remove mootools if set
-		if ($this->document->params->get('mootools', '1') == '0')
-		{
-			$dochead = $this->document->getHeadData();
-			reset($dochead['scripts']);
-			foreach ($dochead['scripts'] as $script => $type)
-			{
-				if (strpos($script, 'media/system/js/caption.js') || strpos($script, 'media/system/js/mootools.js')
-					|| strpos($script, 'media/system/js/mootools-core.js') || strpos($script, 'media/system/js/mootools-more.js'))
-				{
-					unset($dochead['scripts'][$script]);
-				}
-			}
-			$this->document->setHeadData($dochead);
-		}
-		else
-		{
-			JHtml::_('behavior.framework', true);
-		}
+		JHtml::_('behavior.framework', true);
 
 		// load jQuery ?
 		if ($this->loadBootstrap && $loadJquery = $this->document->params->get('jquery', 0))
 		{
 			switch ($loadJquery)
 			{
-				// load jQuery locally
+				// Load jQuery locally
 				case 1:
 					$jquery = $this->_urlJS . '/jquery.min.js';
 					break;
-				// load jQuery from Google
+				// Load jQuery from Google
 				default:
 					$jquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js';
 					break;
 			}
 
 			$this->document->addScript($jquery);
-			// ensure that jQuery loads in noConflict mode to avoid mootools conflicts
+
+			// Ensure that jQuery loads in noConflict mode to avoid mootools conflicts
 			$this->document->addScriptDeclaration('jQuery.noConflict();');
 		}
 
