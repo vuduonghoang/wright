@@ -8,7 +8,7 @@
 	<authorUrl>http://www.redcomponent.com</authorUrl>
 	<copyright>Copyright redComponent 2013. All rights reserved</copyright>
 	<license>GNU GPLv2</license>
-	<version>1.0</version>
+	<version>1.1</version>
     <description>TPL_REDCOMPONENT_XML_DESCRIPTION</description>
 
 	<files>
@@ -25,9 +25,8 @@
 		<folder>js</folder>
         <folder>less</folder>
 		<folder>wright</folder>
-		<folder>language</folder>
 	</files>
-	
+
 	<positions>
 		<position>toolbar</position>
 		<position>logo</position>
@@ -47,7 +46,13 @@
 		<position>bottom-menu</position>
 		<position>footer</position>
 	</positions>
-	
+
+	<languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.tpl_redcomponent.ini</language>
+        <language tag="en-GB">en-GB/en-GB.tpl_redcomponent.sys.ini</language>
+    </languages>
+
+
 	<config>
 		<fields name="params" addfieldpath="/templates/redcomponent/wright/parameters/joomla_2.5">
 			<fieldset name="basic">
@@ -73,7 +78,7 @@
 				<field name="body_font" type="typography" default="default" label="TPL_REDCOMPONENT_FIELD_BODY_FONT_LABEL" description="TPL_REDCOMPONENT_FIELD_BODY_FONT_DESC" />
 				<field name="header_font" type="typography" default="default" label="TPL_REDCOMPONENT_FIELD_HEADING_FONT_LABEL" description="TPL_REDCOMPONENT_FIELD_HEADING_FONT_DESC" />
 				<field name="columns" type="hidden" default="sidebar1:2;main:7;sidebar2:3" />
-				
+
 				<field name="buttonspacer" label="TPL_REDCOMPONENT_BOOTSTRAP_TITLE_LABEL" description="TPL_REDCOMPONENT_BOOTSTRAP_TITLE_DESC" type="spacer" />
 				<field name="bs_rowmode" type="list" default="row" label="TPL_REDCOMPONENT_FIELD_BOOTSTRAP_ROW_MODE_LABEL" description="TPL_REDCOMPONENT_FIELD_BOOTSTRAP_ROW_MODE_DESC">
 					<option value="row-fluid">TPL_REDCOMPONENT_FIELD_BOOTSTRAP_ROW_MODE_FLUID</option>
@@ -94,9 +99,9 @@
 					<option value="img-polaroid">TPL_REDCOMPONENT_BOOTSTRAP_IMAGES_POLAROID</option>
 				</field>
                 <!-- End of default Wright params -->
-				
+
 				<field name="hiddenmodule" type="Modules" multiple="true" size="20" label="Hidden modules in phone" description="Hidden modules in phone" />
-				
+
 			</fieldset>
 		</fields>
 	</config>

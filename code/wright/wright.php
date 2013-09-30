@@ -38,7 +38,7 @@ class Wright
 	public $author;
     public $browser;
 
-	public $revision = "1.0";
+	public $revision = "1.1";
 
 	private $loadBootstrap = false;
 
@@ -126,8 +126,6 @@ class Wright
 
 	public function display()
 	{
-
-
         // Setup the header
 		$this->header();
 
@@ -194,18 +192,6 @@ class Wright
 		if (trim($this->document->params->get('headerscript', '')) !== '')
 		{
 			$this->addJSScriptDeclaration($this->document->params->get('headerscript'));
-		}
-
-		// set custom template theme for user
-		$user = JFactory::getUser();
-		if (!is_null(JRequest::getVar('templateTheme', NULL)))
-		{
-			$user->setParam('theme', JRequest::getVar('templateTheme'));
-			$user->save(true);
-		}
-		if ($user->getParam('theme'))
-		{
-			$this->document->params->set('style', $user->getParam('theme'));
 		}
 
 		// Build css
