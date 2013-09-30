@@ -10,6 +10,17 @@
 	.box-sizing(border-box);
 }
 
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  position: relative;
+  .element-invisible {
+    display: none;
+    visibility: hidden;
+  }
+}
 @import "mixins.less";
 .gridRedWeb .grid('');
 
@@ -568,4 +579,15 @@ td span.required
     height: 100%;
     line-height: 100%;
     vertical-align: baseline;
+}
+
+
+#footer {
+  .moduletable, .module {
+    margin-bottom: 0;
+  }
+
+  &.sticky {
+    width: 100%;
+  }
 }
