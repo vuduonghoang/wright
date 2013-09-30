@@ -12,7 +12,7 @@ class BuildBootstrap extends lessc
 
 		if ($instance === null)
 		{
-			$instance = new Wright();
+			$instance = new Wright;
 		}
 
 		return $instance;
