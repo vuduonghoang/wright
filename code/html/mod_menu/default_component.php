@@ -25,7 +25,7 @@ $class = $item->anchor_css ? $item->anchor_css : '';
 $toggle = "";
 if ($item->parent) {
 	$class .= ' dropdown-toggle disabled';
-	$toggle = 'data-toggle="dropdown"';
+	$toggle = ' data-toggle="dropdown"';
 }
 
 if (!empty($class)) {
@@ -35,8 +35,8 @@ if (!empty($class)) {
 ?>
 
 <a <?php echo $class; ?><?php echo $toggle; ?> href="<?php echo $item->flink; ?>" <?php echo $title; ?>
-	
-<?php 
+
+<?php
 
 switch ($item->browserNav) :
 	case 1:

@@ -8,47 +8,70 @@
  * It would be inadvisable to alter the contents of anything inside of this folder
  *
  */
+
 defined('_JEXEC') or die('You are not allowed to directly access this file');
 
-//Adding a check for PHP4 to cut down on support
-if (version_compare(PHP_VERSION, '5', '<'))
+if (version_compare(JVERSION, '3.0', 'lt'))
 {
-	print
-		'You are using an out of date version of PHP, version ' . PHP_VERSION
-			. ' and our products require PHP 5.2 or greater. Please contact your host to use PHP 5.2 or greater. All versions of PHP prior to this are unsupported, by us and by the PHP community.';
-	die();
+	// Check for PHP 5.2.4 if Joomla < 3.0
+	if (version_compare(PHP_VERSION, '5.2.4', 'lt'))
+	{
+		print 'You are using an out of date version of PHP, version ' . PHP_VERSION . ' and Joomla 2.5 requires PHP 5.2.4 or greater. Please contact your host to use PHP 5.2.4 or greater (Joomla 5.3+ recommended).
+			<br />Please check Joomla requirements in <a href="http://www.joomla.org/technical-requirements.html">http://www.joomla.org/technical-requirements.html</a>';
+		die();
+	}
+}
+else
+{
+	// Check for PHP 5.3.1 if Joomla >= 3.0
+	if (version_compare(PHP_VERSION, '5.3.1', 'lt'))
+	{
+		print 'You are using an out of date version of PHP, version ' . PHP_VERSION . ' and Joomla 3.x requires PHP 5.3.1 or greater. Please contact your host to use PHP 5.3.1 or greater.
+			<br />Please check Joomla requirements in <a href="http://www.joomla.org/technical-requirements.html">http://www.joomla.org/technical-requirements.html</a>';
+		die();
+	}
 }
 
-// includes WrightTemplateBase class for customizations to the template
-require_once(dirname(__FILE__) . '/template/wrighttemplatebase.php');
+// Includes WrightTemplateBase class for customizations to the template
+require_once dirname(__FILE__) . '/template/wrighttemplatebase.php';
 
-//Mobile Detect
-require_once(dirname(__FILE__) . '/includes/mobile_detect.php');
+// Mobile Detect
+require_once dirname(__FILE__) . '/includes/mobile_detect.php';
 
-//build LESS via PHP
-require_once(dirname(__FILE__) . '/build/build.php');
+// Build LESS via PHP
+require_once dirname(__FILE__) . '/build/build.php';
 
 class Wright
 {
 	public $template;
+
 	public $document;
+
 	public $adapter;
+
 	public $params;
+
 	public $baseurl;
+
 	public $author;
-    public $browser;
+
+	public $browser;
 
 	public $revision = "1.1";
 
 	private $loadBootstrap = false;
 
-	public $_jsScripts = Array();
-	public $_jsDeclarations = Array();
-	public $_cssStyles = Array();
+	public $_jsScripts = array();
+
+	public $_jsDeclarations = array();
+
+	public $_cssStyles = array();
 
 	// Urls
 	private $_urlTemplate = null;
+
 	private $_urlWright = null;
+
 	private $_urlJS = null;
 
 
@@ -60,7 +83,7 @@ class Wright
 		$this->document = $document;
 		$this->params = $document->params;
 		$this->baseurl = $document->baseurl;
-        $this->browser = new Mobile_Detect();
+		$this->browser = new Mobile_Detect;
 
 		// Urls
 		$this->_urlTemplate = JURI::root(true) . '/templates/' . $this->document->template;
@@ -68,7 +91,7 @@ class Wright
 		$this->_urlFontAwesome = $this->_urlWright . '/fontawesome';
 		$this->_urlJS = $this->_urlWright . '/js';
 
-		// versions under 3.0 must load bootstrap
+		// Versions under 3.0 must load bootstrap
 		if (version_compare(JVERSION, '3.0', 'lt'))
 		{
 			$this->loadBootstrap = true;
@@ -79,12 +102,12 @@ class Wright
 			JHtml::_('bootstrap.framework');
 		}
 
-		$this->author = simplexml_load_file(
-			JPATH_BASE . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $this->document->template . DIRECTORY_SEPARATOR
-				. 'templateDetails.xml')->author;
+		$this->author = simplexml_load_file(JPATH_BASE . '/templates/' . $this->document->template . '/templateDetails.xml')->author;
 
-		if (is_file(JPATH_THEMES . DIRECTORY_SEPARATOR . $document->template . DIRECTORY_SEPARATOR . 'functions.php'))
-			include_once(JPATH_THEMES . DIRECTORY_SEPARATOR . $document->template . DIRECTORY_SEPARATOR . 'functions.php');
+		if (is_file(JPATH_THEMES . '/' . $document->template . '/functions.php'))
+		{
+			include_once JPATH_THEMES . '/' . $document->template . '/functions.php';
+		}
 
 		// Get our template for further parsing, if custom file is found
 		// it will use it instead of the default file
@@ -93,22 +116,28 @@ class Wright
 
 		// If homepage, load up home.php if found, or load custom.php if found
 		$lang = JFactory::getLanguage();
+
 		if ($menu->getActive() == $menu->getDefault($lang->getTag()) && is_file(JPATH_THEMES . '/' . $document->template . '/home.php'))
+		{
 			$path = JPATH_THEMES . '/' . $document->template . '/home.php';
+		}
 		elseif (is_file(JPATH_THEMES . '/' . $document->template . '/custom.php'))
+		{
 			$path = JPATH_THEMES . '/' . $document->template . '/custom.php';
+		}
 
-        //
-        if ($this->loadBootstrap)
-            // load bootstrap JS
-            $this->addJSScript($this->_urlJS . '/bootstrap.min.js');
+		if ($this->loadBootstrap)
+		{
+			// Load bootstrap JS
+			$this->addJSScript($this->_urlJS . '/bootstrap.min.js');
+		}
 
-		$build = new BuildBootstrap();
+		$build = new BuildBootstrap;
 		$build->start();
 
 		// Include our file and capture buffer
 		ob_start();
-		include($path);
+		include $path;
 		$this->template = ob_get_contents();
 		ob_end_clean();
 	}
@@ -116,9 +145,10 @@ class Wright
 	static function getInstance()
 	{
 		static $instance = null;
+
 		if ($instance === null)
 		{
-			$instance = new Wright();
+			$instance = new Wright;
 		}
 
 		return $instance;
@@ -126,7 +156,7 @@ class Wright
 
 	public function display()
 	{
-        // Setup the header
+		// Setup the header
 		$this->header();
 
 		// Parse by platform
@@ -144,7 +174,7 @@ class Wright
 	{
 		JHtml::_('behavior.framework', true);
 
-		// load jQuery ?
+		// Load jQuery ?
 		if ($this->loadBootstrap && $loadJquery = $this->document->params->get('jquery', 0))
 		{
 			switch ($loadJquery)
@@ -153,6 +183,7 @@ class Wright
 				case 1:
 					$jquery = $this->_urlJS . '/jquery.min.js';
 					break;
+
 				// Load jQuery from Google
 				default:
 					$jquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js';
@@ -166,6 +197,7 @@ class Wright
 		}
 
 		$this->addJSScript($this->_urlJS . '/utils.js');
+
 		if ($this->document->params->get('stickyFooter', 1))
 		{
 			$this->addJSScript($this->_urlJS . '/stickyfooter.js');
@@ -184,8 +216,6 @@ class Wright
 	private function css()
 	{
 		$this->_cssStyles = $this->loadCSSList();
-
-		//$this->addCSSToHead($styles);
 	}
 
 	private function addCSSToHead($styles)
@@ -268,6 +298,7 @@ class Wright
 			{
 				case '7':
 					$styles['fontawesome'][] = 'font-awesome-ie7.min.css';
+
 				// Does not break for leaving defaults
 				default:
 					if (is_file(JPATH_THEMES . '/' . $this->document->template . '/css/ie' . $major . '.css'))
@@ -305,9 +336,9 @@ class Wright
 
 		if (trim($this->document->params->get('footerscript')) != '')
 		{
-			$this->template = str_replace('</body>',
-				'<script type="text/javascript">' . $this->document->params->get('footerscript') . '</script></body>', $this->template);
+			$this->template = str_replace('</body>', '<script type="text/javascript">' . $this->document->params->get('footerscript') . '</script></body>', $this->template);
 		}
+
 		$this->template = str_replace('__cols__', $adapter->cols, $this->template);
 	}
 
@@ -321,13 +352,14 @@ class Wright
 	{
 		// Get Joomla's version to get proper platform
 		jimport('joomla.version');
-		$version = new JVersion();
+		$version = new JVersion;
 		$file = ucfirst(str_replace('.', '', $version->RELEASE));
 
 		// Load up the proper adapter
-		require_once(dirname(__FILE__) . '/adapters/joomla.php');
+		require_once dirname(__FILE__) . '/adapters/joomla.php';
 		$this->adapter = new WrightAdapterJoomla($file);
 		$this->template = preg_replace_callback("/<w:(.*)\/>/i", array(get_class($this), 'platformTags'), $this->template);
+
 		return true;
 	}
 
@@ -353,12 +385,14 @@ class Wright
 					$attributes[$name] = $value;
 				}
 			}
+
 			$config = array(trim($tag) => $attributes);
 		}
 		else
 		{
 			$config = array(trim($match) => array());
 		}
+
 		return $this->adapter->get($config);
 	}
 
@@ -369,9 +403,10 @@ class Wright
 
 		$result = '';
 		$words = explode(' ', $condition);
+
 		for ($i = 0; $i < count($words); $i += 2)
 		{
-			// odd parts (modules)
+			// Odd parts (modules)
 			$name = strtolower($words[$i]);
 			$words[$i] = ((isset($this->_buffer['modules'][$name])) && ($this->_buffer['modules'][$name] === false)) ? 0
 				: count(JModuleHelper::getModules($name));
@@ -387,7 +422,6 @@ class Wright
 	 */
 	private function reorderContent()
 	{
-
 		/**
 		 * regular patterns to identify every column
 		 * Added id to avoid the annoying bug that avoids the user to use HTML5 tags
@@ -395,19 +429,21 @@ class Wright
 		$patterns = array('sidebar1' => '/<aside(.*)id="sidebar1">(.*)<\/aside>/isU', 'sidebar2' => '/<aside(.*)id="sidebar2">(.*)<\/aside>/isU',
 			'main' => '/<section(.*)id="main"(.*)>(.*)<\/section>/isU');
 
-		// only this columns
+		// Only this columns
 		$allowedColNames = array_keys($patterns);
 		$reorderedCols = array();
 		$reorderedContent = '';
 
-		// get column configuration
+		// Get column configuration
 		$columnCfg = $this->document->params->get('columns', 'sidebar1:3;main:6;sidebar2:3');
 		$colStrings = explode(';', $columnCfg);
+
 		if ($colStrings)
 		{
 			foreach ($colStrings as $colString)
 			{
 				list($colName, $colWidth) = explode(':', $colString);
+
 				if (in_array($colName, $allowedColNames))
 				{
 					$reorderedCols[] = $colName;
@@ -415,29 +451,32 @@ class Wright
 			}
 		}
 
-		// get column contents with regular expressions
+		// Get column contents with regular expressions
 		$patternFound = false;
+
 		foreach ($patterns as $column => $pattern)
 		{
-
-			// save the content into a variable
+			// Save the content into a variable
 			$$column = null;
+
 			if (preg_match($pattern, $this->template, $matches))
 			{
 				$$column = $matches[0];
 
 				$replacement = '';
-				// replace first column found with string '##wricolumns##' to reorder content later
+
+				// Replace first column found with string '##wricolumns##' to reorder content later
 				if (!$patternFound)
 				{
 					$replacement = '##wricolumns##';
 					$patternFound = true;
 				}
+
 				$this->template = preg_replace($pattern, $replacement, $this->template);
 			}
 		}
 
-		// if columns reordered and column content found replace contents
+		// If columns reordered and column content found replace contents
 		if ($reorderedCols && $patternFound)
 		{
 			foreach ($reorderedCols as $colName)
@@ -452,7 +491,6 @@ class Wright
 		$this->template = preg_replace('/##wricolumns##/isU', $reorderedContent, $this->template);
 
 		return $reorderedContent;
-
 	}
 
 	public function addJSScript($url)
@@ -488,25 +526,34 @@ class Wright
 	public function generateJS()
 	{
 		$javascriptBottom = ($this->document->params->get('javascriptBottom', 1) == 1 ? true : false);
+
 		if ($javascriptBottom)
 		{
 			$script = "\n";
+
 			if ($this->_jsScripts)
+			{
 				foreach ($this->_jsScripts as $js)
 				{
 					$script .= "<script src='$js' type='text/javascript'></script>\n";
 				}
+			}
+
 			if ($this->_jsDeclarations)
 			{
 				$script .= "<script type='text/javascript'>\n";
+
 				foreach ($this->_jsDeclarations as $js)
 				{
 					$script .= "$js\n";
 				}
+
 				$script .= "</script>\n";
 			}
+
 			return $script;
 		}
+
 		return "";
 	}
 }
