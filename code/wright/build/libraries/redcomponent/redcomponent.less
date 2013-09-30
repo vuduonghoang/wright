@@ -499,3 +499,73 @@ td span.required
 }
 
 #header #logo a.image h2 { display: none; }
+
+.navbar-inner,
+.navbar-inverse .navbar-inner {
+  filter: none;
+}
+
+.nav .dropdown-toggle .caret {
+  border-bottom-color: #666;
+  border-top-color: #666;
+}
+.nav .dropdown-toggle.btn-primary .caret, .nav .dropdown-toggle.btn-danger .caret, .nav .dropdown-toggle.btn-warning .caret, .nav .dropdown-toggle.btn-success .caret, .nav .dropdown-toggle.btn-info .caret, .nav .dropdown-toggle.btn-inverse .caret {
+  border-bottom-color: white;
+  border-top-color: white;
+}
+.nav .dropdown-toggle.btn-primary .caret, .nav .dropdown-toggle.btn-danger .caret, .nav .dropdown-toggle.btn-warning .caret, .nav .dropdown-toggle.btn-success .caret, .nav .dropdown-toggle.btn-info .caret, .nav .dropdown-toggle.btn-inverse .caret {
+  border-bottom-color: white;
+  border-top-color: white;
+}
+
+.navbar .nav li {
+  margin-bottom: 0;
+  line-height: inherit;
+  .separator{
+    cursor:default !important;
+  }
+}
+.navbar .dropdown-menu .sub-menu {
+    left: 100%;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    margin-top: -1px;
+}
+
+.navbar .dropdown-menu li:hover > .sub-menu {
+    visibility: visible;
+}
+
+.navbar .dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+
+.nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
+    margin-top: 0;
+}
+
+.navbar .sub-menu:before {
+    border-bottom: 7px solid transparent;
+    border-left: none;
+    border-right: 7px solid rgba(0, 0, 0, 0.2);
+    border-top: 7px solid transparent;
+    left: -7px;
+    top: 10px;
+}
+.navbar .sub-menu:after {
+    border-top: 6px solid transparent;
+    border-left: none;
+    border-right: 6px solid #fff;
+    border-bottom: 6px solid transparent;
+    left: 10px;
+    top: 11px;
+    left: -6px;
+}
+
+.navbar a.dropdown-toggle i {
+    height: 100%;
+    line-height: 100%;
+    vertical-align: baseline;
+}
