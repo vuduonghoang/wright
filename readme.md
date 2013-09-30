@@ -1,1 +1,0 @@
-redCOMPONENT Template

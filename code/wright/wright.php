@@ -274,15 +274,14 @@ class Wright
 		$version = $version[0];
 
 		if (is_file(
-			JPATH_THEMES . '/' . $this->document->template . '/css/' . 'joomla' . $version . '-' . $this->document->params->get('style') . '.css'))
-			$styles['template'][] = 'joomla' . $version . '-' . $this->document->params->get('style') . '.css';
+			JPATH_THEMES . '/' . $this->document->template . '/css/style.css'))
+			$styles['template'][] = 'style.css';
 
 		if ($this->document->params->get('responsive', 1)
 			&& is_file(
-				JPATH_THEMES . '/' . $this->document->template . '/css/' . 'joomla' . $version . '-' . $this->document->params->get('style')
-					. '-responsive.css'))
+				JPATH_THEMES . '/' . $this->document->template . '/css/style-responsive.css'))
 		{
-			$styles['template'][] = 'joomla' . $version . '-' . $this->document->params->get('style') . '-responsive.css';
+			$styles['template'][] = 'style-responsive.css';
 		}
 
 		// Add some stuff for lovely IE if needed
@@ -300,7 +299,7 @@ class Wright
 			{
 				case '7':
 					$styles['fontawesome'][] = 'font-awesome-ie7.min.css';
-				// does not break for leaving defaults
+				// Does not break for leaving defaults
 				default:
 					if (is_file(JPATH_THEMES . '/' . $this->document->template . '/css/ie' . $major . '.css'))
 						$styles['ie'][] = 'ie' . $major . '.css';
@@ -310,7 +309,7 @@ class Wright
 		if ($this->document->direction == 'rtl' && is_file(JPATH_THEMES . '/' . $this->document->template . '/css/rtl.css'))
 			$styles['template'][] = 'rtl.css';
 
-		//Check to see if custom.css file is present, and if so add it after all other css files
+		// Check to see if custom.css file is present, and if so add it after all other css files
 		if (is_file(JPATH_THEMES . '/' . $this->document->template . '/css/custom.css'))
 			$styles['template'][] = 'custom.css';
 
@@ -322,7 +321,7 @@ class Wright
 
 	private function doctype()
 	{
-		require(dirname(__FILE__) . '/doctypes/' . $this->document->params->get('doctype', 'html5') . '.php');
+		require dirname(__FILE__) . '/doctypes/' . $this->document->params->get('doctype', 'html5') . '.php';
 		$adapter_name = 'HtmlAdapter' . $this->document->params->get('doctype', 'html5');
 		$adapter = new $adapter_name($this->document->params);
 
@@ -332,7 +331,7 @@ class Wright
 			$this->template = preg_replace_callback($regex, array($adapter, $action), $this->template);
 		}
 
-		// reorder columns based on the order
+		// Reorder columns based on the order
 		$this->reorderContent();
 
 		if (trim($this->document->params->get('footerscript')) != '')
