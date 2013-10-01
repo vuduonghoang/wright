@@ -19,26 +19,36 @@
 
     <target name="site" description="Copies files to a existing joomla site" depends="prepare">
 
-        <filterchain id="version">
+        <filterchain id="file">
             <replaceregexp>
-             <regexp pattern="%%version%%" replace="${tpl.version}" ignoreCase="true" />
+                <regexp pattern="%%version%%" replace="${tpl.version}" ignoreCase="true" />
+                <regexp pattern="%%name%%" replace="${tpl.name}" ignoreCase="true" />
+            </replaceregexp>
+        </filterchain>
+
+        <php expression="strtoupper(${tpl.name})" returnProperty="nameUcwords"/>
+        <filterchain id="lang">
+            <replaceregexp>
+                <regexp pattern="%%NAME%%" replace="${nameUcwords}" ignoreCase="true" />
             </replaceregexp>
         </filterchain>
 
         <!-- Component -->
         <echo message="Copying template..." />
         <copy todir="${www.dir}/templates/${tpl.name}" overwrite="true">
-            <filterchain refid="version" />
+            <filterchain refid="file" />
             <fileset dir="${src}">
                 <exclude name="language/**"/>
             </fileset>
         </copy>
 
         <!-- Languages -->
-        <copy todir="${www.dir}/language" overwrite="true">
-            <fileset dir="${src}/language">
-                <include name="**" />
-            </fileset>
+        <copy file="${src}/language/en-GB/en-GB.tpl_redcomponent.ini" tofile="${www.dir}/language/en-GB/en-GB.tpl_${tpl.name}.ini" overwrite="true" >
+            <filterchain refid="lang" />
         </copy>
+        <copy file="${src}/language/en-GB/en-GB.tpl_redcomponent.sys.ini" tofile="${www.dir}/language/en-GB/en-GB.tpl_${tpl.name}.sys.ini" overwrite="true">
+            <filterchain refid="lang" />
+        </copy>
+
     </target>
 </project>

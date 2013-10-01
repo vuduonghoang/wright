@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5" type="template" method="upgrade" client="site">
-	<name>redComponent</name>
+	<name>%%name%%</name>
 	<creationDate>March 2013</creationDate>
 	<author>redComponent</author>
 	<authorEmail>mail@redcomponent.com</authorEmail>
@@ -47,13 +47,13 @@
 	</positions>
 
 	<languages folder="language">
-        <language tag="en-GB">en-GB/en-GB.tpl_redcomponent.ini</language>
-        <language tag="en-GB">en-GB/en-GB.tpl_redcomponent.sys.ini</language>
+        <language tag="en-GB">en-GB/en-GB.tpl_%%name%%.ini</language>
+        <language tag="en-GB">en-GB/en-GB.tpl_%%name%%.sys.ini</language>
     </languages>
 
 
 	<config>
-		<fields name="params" addfieldpath="/templates/redcomponent/wright/parameters/joomla_2.5">
+		<fields name="params" addfieldpath="/templates/%%name%%/wright/parameters/joomla_2.5">
 			<fieldset name="basic">
                 <!-- Start of default Wright params -->
 

@@ -52,19 +52,36 @@
 
     <target name="build" depends="prepare">
 
-        <filterchain id="version">
+        <filterchain id="file">
             <replaceregexp>
-             <regexp pattern="%%version%%" replace="${tpl.version}" ignoreCase="true" />
+                <regexp pattern="%%version%%" replace="${version}" ignoreCase="true" />
+                <regexp pattern="%%name%%" replace="${extension}" ignoreCase="true" />
             </replaceregexp>
         </filterchain>
 
-        <echo msg="Copying COMPONENT folder to build directory..." />
+        <php expression="strtoupper(${extension})" returnProperty="nameUcwords"/>
+        <filterchain id="lang">
+            <replaceregexp>
+                <regexp pattern="%%NAME%%" replace="${nameUcwords}" ignoreCase="true" />
+            </replaceregexp>
+        </filterchain>
+
+        <echo msg="Copying CODE folder to build directory..." />
         <copy todir="${targetdir}">
-            <filterchain refid="version" />
+            <filterchain refid="file" />
             <fileset dir="${extpath}">
                 <include name="**" />
+                <exclude name="language/**"/>
                 <exclude name=".*" />
             </fileset>
+        </copy>
+
+         <!-- Languages -->
+        <copy file="${extpath}/language/en-GB/en-GB.tpl_redcomponent.ini" tofile="${targetdir}/language/en-GB/en-GB.tpl_${extension}.ini" overwrite="true">
+            <filterchain refid="lang" />
+        </copy>
+        <copy file="${extpath}/language/en-GB/en-GB.tpl_redcomponent.sys.ini" tofile="${targetdir}/language/en-GB/en-GB.tpl_${extension}.sys.ini" overwrite="true">
+            <filterchain refid="lang" />
         </copy>
 
     </target>
