@@ -227,9 +227,13 @@ class Wright
 				foreach ($files as $style)
 				{
 					if ($folder == 'fontawesome')
+					{
 						$sheet = $this->_urlFontAwesome . '/css/' . $style;
+					}
 					else
+					{
 						$sheet = JURI::root() . 'templates/' . $this->document->template . '/css/' . $style;
+					}
 
 					$this->document->addStyleSheet($sheet);
 				}
@@ -249,9 +253,13 @@ class Wright
 				foreach ($files as $style)
 				{
 					if ($folder == 'fontawesome')
+					{
 						$sheet = $this->_urlFontAwesome . '/css/' . $style;
+					}
 					else
+					{
 						$sheet = JURI::root() . 'templates/' . $this->document->template . '/css/' . $style;
+					}
 
 					$css .= '<link rel="stylesheet" href="' . $sheet . '" type="text/css" />' . "\n";
 				}
@@ -272,13 +280,12 @@ class Wright
 		$version = explode('.', JVERSION);
 		$version = $version[0];
 
-		if (is_file(
-			JPATH_THEMES . '/' . $this->document->template . '/css/style.css'))
+		if (is_file(JPATH_THEMES . '/' . $this->document->template . '/css/style.css'))
+		{
 			$styles['template'][] = 'style.css';
+		}
 
-		if ($this->document->params->get('responsive', 1)
-			&& is_file(
-				JPATH_THEMES . '/' . $this->document->template . '/css/style-responsive.css'))
+		if ($this->document->params->get('responsive', 1) && is_file(JPATH_THEMES . '/' . $this->document->template . '/css/style-responsive.css'))
 		{
 			$styles['template'][] = 'style-responsive.css';
 		}
@@ -302,16 +309,21 @@ class Wright
 				// Does not break for leaving defaults
 				default:
 					if (is_file(JPATH_THEMES . '/' . $this->document->template . '/css/ie' . $major . '.css'))
+					{
 						$styles['ie'][] = 'ie' . $major . '.css';
+					}
 			}
 		}
 
 		if ($this->document->direction == 'rtl' && is_file(JPATH_THEMES . '/' . $this->document->template . '/css/rtl.css'))
+		{
 			$styles['template'][] = 'rtl.css';
+		}
 
-		// Check to see if custom.css file is present, and if so add it after all other css files
-		if (is_file(JPATH_THEMES . '/' . $this->document->template . '/css/custom.css'))
-			$styles['template'][] = 'custom.css';
+		if (is_file(JPATH_THEMES . '/' . $this->document->template . '/css/editor.css'))
+		{
+			$styles['template'][] = 'editor.css';
+		}
 
 		// Include FontAwesome
 		$styles['fontawesome'] = Array('font-awesome.min.css');
