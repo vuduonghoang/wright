@@ -1,12 +1,15 @@
-if (typeof jQuery != 'undefined' && typeof MooTools != 'undefined' ) { 
-	(function($) { 
+if (typeof jQuery != 'undefined' && typeof MooTools != 'undefined' ) {
+	(function($) {
 		$(document).ready(function(){
 			$('.carousel').each(function(index, element) {
 				$(this)[index].slide = null;
 			});
+
+			$("[data-toggle=tooltip]").tooltip();
+    		$("[data-toggle=popover]").popover({html: true});
 		});
 	})(jQuery);
-	(function($) { 
+	(function($) {
 		$$('[data-toggle=collapse]').each(function (e) {
 			$$(e.get('data-target'))[0].hide = null;
 		});
@@ -17,20 +20,20 @@ if (typeof jQuery != 'undefined' && typeof MooTools != 'undefined' ) {
 	function wToolbar() {
 		if (typeof wrightWrapperToolbar === 'undefined')
 			wrightWrapperToolbar = '.wrapper-toolbar';
-			
+
 		$(wrightWrapperToolbar).each(function() {
 			$(this).css('min-height',$(this).find('.navbar:first').height() + 'px');
 		});
-		
+
 	}
-	
+
 	function fixImagesIE() {
 		$('img').each(function() {
 			if ($(this).attr('width') != undefined)
 				$(this).width($(this).attr('width'));
 		});
 	}
-	
+
 	wToolbar();
 	fixImagesIE();
 
