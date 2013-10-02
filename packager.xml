@@ -76,7 +76,7 @@
             </fileset>
         </copy>
 
-         <!-- Languages -->
+        <!-- Languages -->
         <copy file="${extpath}/language/en-GB/en-GB.tpl_redcomponent.ini" tofile="${targetdir}/language/en-GB/en-GB.tpl_${extension}.ini" overwrite="true">
             <filterchain refid="lang" />
         </copy>
@@ -92,7 +92,7 @@
     <target name="dist" depends="build">
         <echo msg="Creating ZIP archive..." />
 
-        <zip destfile="${targetdir}/../${extension}-${version}.zip">
+        <zip destfile="${targetdir}/../tpl_${extension}.zip">
             <fileset dir="${targetdir}">
                 <include name="**" />
                 <exclude name=".*" />

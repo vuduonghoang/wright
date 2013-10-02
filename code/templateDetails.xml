@@ -2,11 +2,11 @@
 <extension version="2.5" type="template" method="upgrade" client="site">
 	<name>%%name%%</name>
 	<creationDate>March 2013</creationDate>
-	<author>redComponent</author>
+	<author>redCOMPONENT</author>
 	<authorEmail>mail@redcomponent.com</authorEmail>
 	<authorUrl>http://www.redcomponent.com</authorUrl>
 	<copyright>Copyright redComponent 2013. All rights reserved</copyright>
-	<license>GNU GPLv2</license>
+	<license>GNU/GPL v.3 or later.</license>
 	<version>%%version%%</version>
     <description>TPL_REDCOMPONENT_XML_DESCRIPTION</description>
 
