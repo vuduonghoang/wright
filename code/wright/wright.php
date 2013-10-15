@@ -196,6 +196,13 @@ class Wright
 			$this->document->addScriptDeclaration('jQuery.noConflict();');
 		}
 
+		$this->addJSScriptDeclaration("var wbaseurl = '" . JURI::root() . "';");
+
+		if ($this->browser->isMobile())
+		{
+			$this->addJSScript($this->_urlJS . '/fullajax.min.js');
+		}
+
 		$this->addJSScript($this->_urlJS . '/utils.js');
 
 		if ($this->document->params->get('stickyFooter', 1))
@@ -522,17 +529,8 @@ class Wright
 
 	private function addJSScriptDeclaration($script)
 	{
-		$javascriptBottom = ($this->document->params->get('javascriptBottom', 1) == 1 ? true : false);
-
-		if ($javascriptBottom)
-		{
-			$this->_jsDeclarations[] = $script;
-		}
-		else
-		{
-			$document = JFactory::getDocument();
-			$document->addScriptDeclaration($script);
-		}
+		$document = JFactory::getDocument();
+		$document->addScriptDeclaration($script);
 	}
 
 	public function generateJS()
