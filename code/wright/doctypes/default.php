@@ -136,7 +136,7 @@ abstract class HtmlAdapterAbstract
 
 		$class .= " rev_" . $wright->revision;
 
-		return '<body class="'.$class.'"' . ($style != '' ? ' style="' . $style . '"' : '') . $data . '>';
+		return '<body id="forFullAjax" class="'.$class.'"' . ($style != '' ? ' style="' . $style . '"' : '') . $data . '>';
 	}
 
 	public function getNav($matches)

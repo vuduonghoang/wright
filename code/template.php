@@ -87,7 +87,7 @@ if ($this->countModules('toolbar'))
 				<w:module name="sidebar1" chrome="accordion" />
 			</aside>
 			<!-- main -->
-			<section id="main">
+			<section id="main" class="forFullAjax">
 				<?php if ($this->countModules('above-content')) : ?>
 					<!-- above-content -->
 					<div id="above-content">

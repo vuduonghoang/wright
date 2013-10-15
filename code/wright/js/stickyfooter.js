@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
 	function stickyFooter() {
 		if (jQuery('#footer')) {
-			var h = jQuery('#footer').height();
+			var h = jQuery('#footer').outerHeight();
 			jQuery('.wrapper-footer').height(h);
 		}
 	}
