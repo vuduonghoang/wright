@@ -196,10 +196,9 @@ class Wright
 			$this->document->addScriptDeclaration('jQuery.noConflict();');
 		}
 
-		$this->addJSScriptDeclaration("var wbaseurl = '" . JURI::root() . "';");
-
 		if ($this->browser->isMobile())
 		{
+			$this->addJSScriptDeclaration("window.wbaseurl = '" . JURI::root() . "';");
 			$this->addJSScript($this->_urlJS . '/fullajax.min.js');
 		}
 
