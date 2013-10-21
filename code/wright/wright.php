@@ -126,12 +126,6 @@ class Wright
 			$path = JPATH_THEMES . '/' . $document->template . '/custom.php';
 		}
 
-		if ($this->loadBootstrap)
-		{
-			// Load bootstrap JS
-			$this->addJSScript($this->_urlJS . '/bootstrap.min.js');
-		}
-
 		$build = new BuildBootstrap;
 		$build->start();
 
@@ -192,6 +186,9 @@ class Wright
 
 			$this->document->addScript($jquery);
 
+			// Load bootstrap JS
+			$this->addJSScript($this->_urlJS . '/bootstrap.min.js');
+
 			// Ensure that jQuery loads in noConflict mode to avoid mootools conflicts
 			$this->document->addScriptDeclaration('jQuery.noConflict();');
 		}
@@ -207,12 +204,6 @@ class Wright
 		if ($this->document->params->get('stickyFooter', 1))
 		{
 			$this->addJSScript($this->_urlJS . '/stickyfooter.js');
-		}
-
-		// Add header script if set
-		if (trim($this->document->params->get('headerscript', '')) !== '')
-		{
-			$this->addJSScriptDeclaration($this->document->params->get('headerscript'));
 		}
 
 		// Build css
@@ -351,11 +342,6 @@ class Wright
 
 		// Reorder columns based on the order
 		$this->reorderContent();
-
-		if (trim($this->document->params->get('footerscript')) != '')
-		{
-			$this->template = str_replace('</body>', '<script type="text/javascript">' . $this->document->params->get('footerscript') . '</script></body>', $this->template);
-		}
 
 		$this->template = str_replace('__cols__', $adapter->cols, $this->template);
 	}
@@ -513,56 +499,59 @@ class Wright
 
 	public function addJSScript($url)
 	{
-		$javascriptBottom = ($this->document->params->get('javascriptBottom', 1) == 1 ? true : false);
-
-		if ($javascriptBottom)
-		{
-			$this->_jsScripts[] = $url;
-		}
-		else
-		{
-			$document = JFactory::getDocument();
-			$document->addScript($url);
-		}
+		$this->_jsScripts[] = $url;
 	}
 
 	private function addJSScriptDeclaration($script)
 	{
-		$document = JFactory::getDocument();
-		$document->addScriptDeclaration($script);
+		$this->_jsDeclarations[] = $script;
 	}
 
 	public function generateJS()
 	{
 		$javascriptBottom = ($this->document->params->get('javascriptBottom', 1) == 1 ? true : false);
 
-		if ($javascriptBottom)
-		{
-			$script = "\n";
+		$script = "\n";
 
-			if ($this->_jsScripts)
+		if ($this->_jsDeclarations)
+		{
+			$dec = "";
+
+
+
+			foreach ($this->_jsDeclarations as $js)
 			{
-				foreach ($this->_jsScripts as $js)
+				if ($javascriptBottom)
+				{
+					$dec .= "$js\n";
+				}
+				else
+				{
+					$this->document->addScript($js);
+				}
+			}
+
+			if (!empty($dec))
+			{
+				$script .= "<script type='text/javascript'>\n" . $dec . "</script>\n";
+			}
+		}
+
+		if ($this->_jsScripts)
+		{
+			foreach ($this->_jsScripts as $js)
+			{
+				if ($javascriptBottom)
 				{
 					$script .= "<script src='$js' type='text/javascript'></script>\n";
 				}
-			}
-
-			if ($this->_jsDeclarations)
-			{
-				$script .= "<script type='text/javascript'>\n";
-
-				foreach ($this->_jsDeclarations as $js)
+				else
 				{
-					$script .= "$js\n";
+					$this->document->addScript($js);
 				}
-
-				$script .= "</script>\n";
 			}
-
-			return $script;
 		}
 
-		return "";
+		return $script;
 	}
 }
