@@ -58,11 +58,11 @@ class Wright
 
 	private $loadBootstrap = false;
 
-	public $_jsScripts = array();
+	private $_jsScripts = array();
 
-	public $_jsDeclarations = array();
+	private $_jsDeclarations = array();
 
-	public $_cssStyles = array();
+	private $_cssStyles = array();
 
 	// Urls
 	private $_urlTemplate = null;
