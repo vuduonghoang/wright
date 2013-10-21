@@ -53,7 +53,4 @@ endswitch;
 <span>
 	<?php echo $linktype; ?>
 </span>
-<?php if ($item->parent): ?>
-	<b class="caret"></b>
-<?php endif;?>
 </a>

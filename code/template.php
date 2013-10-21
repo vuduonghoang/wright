@@ -72,7 +72,7 @@ if ($this->countModules('toolbar'))
 		<?php if ($this->countModules('grid-top')) : ?>
 			<!-- grid-top -->
 			<div id="grid-top">
-				<w:module type="<?php echo $gridMode; ?>" name="grid-top" chrome="popover" extra="top"  />
+				<w:module type="<?php echo $gridMode; ?>" name="grid-top" chrome="popover" extra="bottom"  />
 			</div>
 		<?php endif; ?>
 		<?php if ($this->countModules('grid-top2')) : ?>

@@ -1,11 +1,8 @@
 <?php
 /**
- * @package Joomlashack Wright Framework
- * @copyright Joomlashack 2010-2013. All Rights Reserved.
+ * @package    RedCOMPONENT.Template.Framework.
  *
- * @description Wright is a framework layer for Joomla to improve stability of Joomlashack Templates
- *
- * It would be inadvisable to alter the contents of anything inside of this folder
+ * @copyright  redCOMPONENT 2013 All Rights Reserved.
  *
  */
 
@@ -57,15 +54,15 @@ class Wright
 
 	public $browser;
 
-	public $revision = "%%version%%";
+	public $revision = "1.1";
 
 	private $loadBootstrap = false;
 
-	public $_jsScripts = array();
+	private $_jsScripts = array();
 
-	public $_jsDeclarations = array();
+	private $_jsDeclarations = array();
 
-	public $_cssStyles = array();
+	private $_cssStyles = array();
 
 	// Urls
 	private $_urlTemplate = null;
@@ -124,12 +121,6 @@ class Wright
 		elseif (is_file(JPATH_THEMES . '/' . $document->template . '/custom.php'))
 		{
 			$path = JPATH_THEMES . '/' . $document->template . '/custom.php';
-		}
-
-		if ($this->loadBootstrap)
-		{
-			// Load bootstrap JS
-			$this->addJSScript($this->_urlJS . '/bootstrap.min.js');
 		}
 
 		$build = new BuildBootstrap;
@@ -192,8 +183,17 @@ class Wright
 
 			$this->document->addScript($jquery);
 
+			// Load bootstrap JS
+			$this->addJSScript($this->_urlJS . '/bootstrap.min.js', true);
+
 			// Ensure that jQuery loads in noConflict mode to avoid mootools conflicts
 			$this->document->addScriptDeclaration('jQuery.noConflict();');
+		}
+
+		if ($this->browser->isMobile())
+		{
+			$this->addJSScriptDeclaration("window.wbaseurl = '" . JURI::root() . "';");
+			$this->addJSScript($this->_urlJS . '/fullajax.min.js');
 		}
 
 		$this->addJSScript($this->_urlJS . '/utils.js');
@@ -203,18 +203,7 @@ class Wright
 			$this->addJSScript($this->_urlJS . '/stickyfooter.js');
 		}
 
-		// Add header script if set
-		if (trim($this->document->params->get('headerscript', '')) !== '')
-		{
-			$this->addJSScriptDeclaration($this->document->params->get('headerscript'));
-		}
-
 		// Build css
-		$this->css();
-	}
-
-	private function css()
-	{
 		$this->_cssStyles = $this->loadCSSList();
 	}
 
@@ -227,9 +216,13 @@ class Wright
 				foreach ($files as $style)
 				{
 					if ($folder == 'fontawesome')
+					{
 						$sheet = $this->_urlFontAwesome . '/css/' . $style;
+					}
 					else
+					{
 						$sheet = JURI::root() . 'templates/' . $this->document->template . '/css/' . $style;
+					}
 
 					$this->document->addStyleSheet($sheet);
 				}
@@ -249,9 +242,13 @@ class Wright
 				foreach ($files as $style)
 				{
 					if ($folder == 'fontawesome')
+					{
 						$sheet = $this->_urlFontAwesome . '/css/' . $style;
+					}
 					else
+					{
 						$sheet = JURI::root() . 'templates/' . $this->document->template . '/css/' . $style;
+					}
 
 					$css .= '<link rel="stylesheet" href="' . $sheet . '" type="text/css" />' . "\n";
 				}
@@ -272,13 +269,12 @@ class Wright
 		$version = explode('.', JVERSION);
 		$version = $version[0];
 
-		if (is_file(
-			JPATH_THEMES . '/' . $this->document->template . '/css/style.css'))
+		if (is_file(JPATH_THEMES . '/' . $this->document->template . '/css/style.css'))
+		{
 			$styles['template'][] = 'style.css';
+		}
 
-		if ($this->document->params->get('responsive', 1)
-			&& is_file(
-				JPATH_THEMES . '/' . $this->document->template . '/css/style-responsive.css'))
+		if ($this->document->params->get('responsive', 1) && is_file(JPATH_THEMES . '/' . $this->document->template . '/css/style-responsive.css'))
 		{
 			$styles['template'][] = 'style-responsive.css';
 		}
@@ -302,16 +298,27 @@ class Wright
 				// Does not break for leaving defaults
 				default:
 					if (is_file(JPATH_THEMES . '/' . $this->document->template . '/css/ie' . $major . '.css'))
+					{
 						$styles['ie'][] = 'ie' . $major . '.css';
+					}
+			}
+
+			if ((int) $major <= 9)
+			{
+				$this->addJSScript($this->_urlJS . '/html5shiv.js');
+				$this->addJSScript($this->_urlJS . '/respond.min.js');
 			}
 		}
 
 		if ($this->document->direction == 'rtl' && is_file(JPATH_THEMES . '/' . $this->document->template . '/css/rtl.css'))
+		{
 			$styles['template'][] = 'rtl.css';
+		}
 
-		// Check to see if custom.css file is present, and if so add it after all other css files
-		if (is_file(JPATH_THEMES . '/' . $this->document->template . '/css/custom.css'))
-			$styles['template'][] = 'custom.css';
+		if (is_file(JPATH_THEMES . '/' . $this->document->template . '/css/editor.css'))
+		{
+			$styles['template'][] = 'editor.css';
+		}
 
 		// Include FontAwesome
 		$styles['fontawesome'] = Array('font-awesome.min.css');
@@ -333,11 +340,6 @@ class Wright
 
 		// Reorder columns based on the order
 		$this->reorderContent();
-
-		if (trim($this->document->params->get('footerscript')) != '')
-		{
-			$this->template = str_replace('</body>', '<script type="text/javascript">' . $this->document->params->get('footerscript') . '</script></body>', $this->template);
-		}
 
 		$this->template = str_replace('__cols__', $adapter->cols, $this->template);
 	}
@@ -493,67 +495,69 @@ class Wright
 		return $reorderedContent;
 	}
 
-	public function addJSScript($url)
+	public function addJSScript($url, $first = false)
 	{
-		$javascriptBottom = ($this->document->params->get('javascriptBottom', 1) == 1 ? true : false);
-
-		if ($javascriptBottom)
+		if ($first)
 		{
-			$this->_jsScripts[] = $url;
+			array_unshift($this->_jsScripts, $url);
 		}
 		else
 		{
-			$document = JFactory::getDocument();
-			$document->addScript($url);
+			$this->_jsScripts[] = $url;
 		}
+
 	}
 
 	private function addJSScriptDeclaration($script)
 	{
-		$javascriptBottom = ($this->document->params->get('javascriptBottom', 1) == 1 ? true : false);
-
-		if ($javascriptBottom)
-		{
-			$this->_jsDeclarations[] = $script;
-		}
-		else
-		{
-			$document = JFactory::getDocument();
-			$document->addScriptDeclaration($script);
-		}
+		$this->_jsDeclarations[] = $script;
 	}
 
 	public function generateJS()
 	{
 		$javascriptBottom = ($this->document->params->get('javascriptBottom', 1) == 1 ? true : false);
 
-		if ($javascriptBottom)
-		{
-			$script = "\n";
+		$script = "\n";
 
-			if ($this->_jsScripts)
+		if ($this->_jsDeclarations)
+		{
+			$dec = "";
+
+
+
+			foreach ($this->_jsDeclarations as $js)
 			{
-				foreach ($this->_jsScripts as $js)
+				if ($javascriptBottom)
+				{
+					$dec .= "$js\n";
+				}
+				else
+				{
+					$this->document->addScript($js);
+				}
+			}
+
+			if (!empty($dec))
+			{
+				$script .= "<script type='text/javascript'>\n" . $dec . "</script>\n";
+			}
+		}
+
+		if ($this->_jsScripts)
+		{
+			foreach ($this->_jsScripts as $js)
+			{
+				if ($javascriptBottom)
 				{
 					$script .= "<script src='$js' type='text/javascript'></script>\n";
 				}
-			}
-
-			if ($this->_jsDeclarations)
-			{
-				$script .= "<script type='text/javascript'>\n";
-
-				foreach ($this->_jsDeclarations as $js)
+				else
 				{
-					$script .= "$js\n";
+					$this->document->addScript($js);
 				}
-
-				$script .= "</script>\n";
 			}
-
-			return $script;
 		}
 
-		return "";
+		return $script;
 	}
 }

@@ -14,7 +14,7 @@ class WrightAdapterJoomlaNav
 		// Set module name
 		if (!isset($args['wrapClass'])) $args['wrapClass'] = '';
 		if (!isset($args['wrapper'])) $args['wrapper'] = 'wrapper-' . $args['name'];
-		
+
 		if (!isset($args['type'])) $args['type'] = 'menu';
 
 		if ($args['type'] == 'toolbar') {
@@ -29,14 +29,14 @@ class WrightAdapterJoomlaNav
 						            <span class="icon-bar"></span>
 						            <span class="icon-bar"></span>
 					            </a>
-					            <div class="nav-collapse" id="nav-'.$args['name'].'">
+					            <div class="nav-collapse collapse" id="nav-'.$args['name'].'">
 									 <jdoc:include type="modules" name="'.$args['name'].'" style="'.$args['style'].'" />
 								</div>
 							</div>
 						</div>
 					</div>
 				</nav>
-			</div>';		
+			</div>';
 		}
 		else {
 			$nav =
@@ -50,14 +50,14 @@ class WrightAdapterJoomlaNav
 						            <span class="icon-bar"></span>
 						            <span class="icon-bar"></span>
 					            </a>
-					            <div class="nav-collapse" id="nav-'.$args['name'].'">
+					            <div class="nav-collapse collapse" id="nav-'.$args['name'].'">
 									 <jdoc:include type="modules" name="'.$args['name'].'" style="'.$args['style'].'" />
 								</div>
 							</div>
 						</div>
 					</nav>
 				</div>
-			</div>';			
+			</div>';
 		}
 
 		return $nav;
