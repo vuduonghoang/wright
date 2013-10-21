@@ -1,11 +1,8 @@
 <?php
 /**
- * @package Joomlashack Wright Framework
- * @copyright Joomlashack 2010-2013. All Rights Reserved.
+ * @package    RedCOMPONENT.Template.Framework.
  *
- * @description Wright is a framework layer for Joomla to improve stability of Joomlashack Templates
- *
- * It would be inadvisable to alter the contents of anything inside of this folder
+ * @copyright  redCOMPONENT 2013 All Rights Reserved.
  *
  */
 
@@ -187,7 +184,7 @@ class Wright
 			$this->document->addScript($jquery);
 
 			// Load bootstrap JS
-			$this->addJSScript($this->_urlJS . '/bootstrap.min.js');
+			$this->addJSScript($this->_urlJS . '/bootstrap.min.js', true);
 
 			// Ensure that jQuery loads in noConflict mode to avoid mootools conflicts
 			$this->document->addScriptDeclaration('jQuery.noConflict();');
@@ -207,11 +204,6 @@ class Wright
 		}
 
 		// Build css
-		$this->css();
-	}
-
-	private function css()
-	{
 		$this->_cssStyles = $this->loadCSSList();
 	}
 
@@ -309,6 +301,12 @@ class Wright
 					{
 						$styles['ie'][] = 'ie' . $major . '.css';
 					}
+			}
+
+			if ((int) $major <= 9)
+			{
+				$this->addJSScript($this->_urlJS . '/html5shiv.js');
+				$this->addJSScript($this->_urlJS . '/respond.min.js');
 			}
 		}
 
@@ -497,9 +495,17 @@ class Wright
 		return $reorderedContent;
 	}
 
-	public function addJSScript($url)
+	public function addJSScript($url, $first = false)
 	{
-		$this->_jsScripts[] = $url;
+		if ($first)
+		{
+			array_unshift($this->_jsScripts, $url);
+		}
+		else
+		{
+			$this->_jsScripts[] = $url;
+		}
+
 	}
 
 	private function addJSScriptDeclaration($script)
