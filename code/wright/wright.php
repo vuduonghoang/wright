@@ -54,7 +54,7 @@ class Wright
 
 	public $browser;
 
-	public $revision = "1.1";
+	public $revision = "%%version%%";
 
 	private $loadBootstrap = false;
 
@@ -80,7 +80,7 @@ class Wright
 		$this->document = $document;
 		$this->params = $document->params;
 		$this->baseurl = $document->baseurl;
-		$this->browser = new Mobile_Detect;
+		$this->browser = new WMobile_Detect;
 
 		// Urls
 		$this->_urlTemplate = JURI::root(true) . '/templates/' . $this->document->template;
