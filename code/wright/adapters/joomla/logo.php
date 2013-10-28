@@ -2,38 +2,42 @@
 
 class WrightAdapterJoomlaLogo
 {
-	// checks the existance of a logo
-	public static function isThereALogo() {
+	// Checks the existance of a logo
+	public static function isThereALogo()
+	{
 		$dochtml = JFactory::getDocument();
 
-		// if is set as a module position 'logo', checks if there is any module in that position
-		if ($dochtml->params->get('logo', 'template') == 'module') {
+		// If is set as a module position 'logo', checks if there is any module in that position
+		if ($dochtml->params->get('logo', 'template') == 'module')
+		{
 			if ($dochtml->countModules('logo'))
 				return true;
+
 			return false;
 		}
 
-		// in any other case, there is always a logo (at least as Wright's default image logo.png)
+		// In any other case, there is always a logo (at least as Wright's default image logo.png)
 		return true;
 	}
 
-	public function renderCompanion($name, $args, $width, $alt = false) {
+	public function renderCompanion($name, $args, $width, $alt = false)
+	{
 		$doc = Wright::getInstance();
 
-        if($doc->browser->isMobile())
-        {
-            $hiddenmodule = $wr->params->get('hiddenmodule', array());
+		if ($doc->browser->isMobile() && !$doc->browser->isTablet())
+		{
+			$hiddenmodule = $wr->params->get('hiddenmodule', array());
 
-            $modules = JModuleHelper::getModules($name);
+			$modules = JModuleHelper::getModules($name);
 
-            foreach($modules as $module)
-            {
-                if(in_array($module->id, $hiddenmodule))
-                {
-                    $module->position = 'hiddenmodule';
-                }
-            }
-        }
+			foreach ($modules as $module)
+			{
+				if (in_array($module->id, $hiddenmodule))
+				{
+					$module->position = 'hiddenmodule';
+				}
+			}
+		}
 
 		if ($name == 'menu') {
 			return '

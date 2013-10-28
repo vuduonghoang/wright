@@ -190,7 +190,7 @@ class Wright
 			$this->document->addScriptDeclaration('jQuery.noConflict();');
 		}
 
-		if ($this->browser->isMobile())
+		if ($this->browser->isMobile() && !$this->browser->isTablet())
 		{
 			$this->addJSScriptDeclaration("window.wbaseurl = '" . JURI::root() . "';");
 			$this->addJSScript($this->_urlJS . '/fullajax.min.js');

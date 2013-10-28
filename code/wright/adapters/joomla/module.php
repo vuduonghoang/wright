@@ -7,7 +7,7 @@ class WrightAdapterJoomlaModule
 	{
         //Hidden module
         $wr = Wright::getInstance();
-        if($wr->browser->isMobile())
+        if($wr->browser->isMobile() && !$wr->browser->isTablet())
         {
             $hiddenmodule = $wr->params->get('hiddenmodule', array());
 
