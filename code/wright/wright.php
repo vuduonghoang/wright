@@ -305,8 +305,7 @@ class Wright
 
 			if ((int) $major <= 9)
 			{
-				$this->addJSScript($this->_urlJS . '/html5shiv.js');
-				$this->addJSScript($this->_urlJS . '/respond.min.js');
+				$this->document->addScript($this->_urlJS . '/html5shiv.js');
 			}
 		}
 

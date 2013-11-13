@@ -45,6 +45,14 @@ class WrightAdapterJoomlaHead
 		$wr = Wright::getInstance();
 		$head .= $wr->generateCSS();
 
+		$browser = JBrowser::getInstance();
+
+		// Add responsive for IE
+		if ($browser->getBrowser() == 'msie' && (int) $browser->getMajor() <= 9)
+		{
+			$head .= '<script src="' . JURI::root() . 'templates/' . $doc->template . '/wright/js/respond.min.js" type="text/javascript"></script>';
+		}
+
 		return $head;
 	}
 }
