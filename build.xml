@@ -35,11 +35,9 @@
 
         <!-- Component -->
         <echo message="Copying template..." />
-        <copy todir="${www.dir}/templates/${tpl.name}" overwrite="true">
+        <copy todir="${www.dir}/templates/${tpl.name}/wright" overwrite="true">
             <filterchain refid="file" />
-            <fileset dir="${src}">
-                <exclude name="language/**"/>
-            </fileset>
+            <fileset dir="${src}/wright" />
         </copy>
 
         <!-- Languages -->
