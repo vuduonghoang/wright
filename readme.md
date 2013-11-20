@@ -1,4 +1,5 @@
 redCOMPONENT Template
+==================================================
 
 How to build your own Template
 ----------------------------
