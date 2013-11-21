@@ -177,11 +177,12 @@ class Wright
 
 				// Load jQuery from Google
 				default:
-					$jquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js';
+					$jquery = 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js';
 					break;
 			}
 
 			$this->document->addScript($jquery);
+			$this->document->addScript($this->_urlJS . '/jquery-migrate.min.js');
 
 			// Load bootstrap JS
 			$this->addJSScript($this->_urlJS . '/bootstrap.min.js', true);
