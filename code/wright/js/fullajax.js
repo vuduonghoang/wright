@@ -22,7 +22,7 @@ FLAX.Filter.add({url:'/', id:fullAjaxId});
 FLAX.Filter.add({query:['view=quotation', 'task=weblink','task=profile','task=user.login','task=user.logout','task=article.edit'],  type:'nowrap'});
 FLAX.Filter.on('beforewrap', function(o) {
 	var id = o.el.getAttribute('id'), regExt = /.+\.(jpg|jpeg|gif|png|mp3|mp4|ogg|ogv|webm|pdf|txt|odf|ods)$/i;
-	if(id == ('login-form') || id == ('form-login') || o.el.href == wbaseurl || (o.el.href && (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;}
+	if(id == ('login-form') || id == ('form-login') || o.el.href == document.URL || (o.el.href && (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;}
 });
 FLAX.directLink(); FLAX.Default.sprt_url = '!'; FLAX.linkEqual['!ax!'+fullAjaxId+'!'] = 'ajx'; FLAX.linkEqual['[~q~]'] = '?';
 FLAX.Html.onall('load', function(o){ window.fireEvent('domready');});
