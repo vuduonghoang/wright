@@ -54,7 +54,7 @@ class BuildBootstrap extends lessc
 		}
 
 		// Build LESS
-		if ($rebuild)
+		//if ($rebuild)
 		{
 			// Get column configuration
 			$left_columns = 1;
@@ -73,20 +73,15 @@ class BuildBootstrap extends lessc
 
 			$this->setFormatter("compressed");
 
-			$this->setVariables(
+			/*$this->setVariables(
 				array(
 					"leftColumns" => $left_columns,
 					"rightColumns" => $right_columns
-				));
+				));*/
 
 			if (is_file(JPATH_THEMES . '/' . $document->template . '/css/style.css'))
 			{
 				unlink(JPATH_THEMES . '/' . $document->template . '/css/style.css');
-			}
-
-			if (is_file(JPATH_THEMES . '/' . $document->template . '/css/style-responsive.css'))
-			{
-				unlink(JPATH_THEMES . '/' . $document->template . '/css/style-responsive.css');
 			}
 
 			$df =  dirname(__FILE__) . '/less/build.less';
@@ -99,19 +94,6 @@ class BuildBootstrap extends lessc
 			file_put_contents($df, $ds);
 
 			$this->compileFile($df, JPATH_THEMES . '/' . $document->template . '/css/style.css');
-
-			// Responsive
-			$ds = '@import "../../../less/variables.less"; ';
-			$ds .= '@import "../less/responsive.less"; ';
-
-			if (is_file(JPATH_THEMES . '/' . $document->template . '/less/template-responsive.less'))
-			{
-				$ds .= '@import "../../../less/template-responsive.less"; ';
-			}
-
-			file_put_contents($df, $ds);
-
-			$this->compileFile($df, JPATH_THEMES . '/' . $document->template . '/css/style-responsive.css');
 
 			unlink($df);
 		}
