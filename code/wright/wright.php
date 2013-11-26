@@ -166,7 +166,7 @@ class Wright
 		JHtml::_('behavior.framework', true);
 
 		// Load jQuery ?
-		if ($this->loadBootstrap && $loadJquery = $this->document->params->get('jquery', 0))
+		if ($loadJquery = $this->document->params->get('jquery', 0))
 		{
 			switch ($loadJquery)
 			{
@@ -189,7 +189,10 @@ class Wright
 		}
 
 		// Load bootstrap JS
-		$this->addJSScript($this->_urlJS . '/bootstrap.min.js', true);
+		if ($this->loadBootstrap)
+		{
+			$this->addJSScript($this->_urlJS . '/bootstrap.min.js', true);
+		}
 
 		if ($this->browser->isMobile() && !$this->browser->isTablet())
 		{
