@@ -9,11 +9,6 @@ if (typeof jQuery != 'undefined' && typeof MooTools != 'undefined' ) {
     		$("[data-toggle=popover]").popover({html: true});
 		});
 	})(jQuery);
-	(function($) {
-		$$('[data-toggle=collapse]').each(function (e) {
-			$$(e.get('data-target'))[0].hide = null;
-		});
-	})(MooTools);
 }
 
 (function($) {
