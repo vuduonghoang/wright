@@ -11,16 +11,16 @@
 	{
 	   width: auto !important;
         .clearfix();
-		margin-left: -@gridMarginLeft;
-        margin-right: -@gridMarginLeft;
+		margin-left: -(@gridMarginLeft / 2);
+        margin-right: -(@gridMarginLeft / 2);
 
 	}
 
 	.row(@gridColumns, @gridMarginLeft, @girdColumnHeight)
 	{
 		width: percentage(1/@gridColumns) !important;
-        padding-left: @gridMarginLeft;
-        padding-right: @gridMarginLeft;
+        padding-left: (@gridMarginLeft / 2);
+        padding-right: (@gridMarginLeft / 2);
 		float: left;
         margin: 0px;
         border: 0px;

@@ -54,7 +54,7 @@ class BuildBootstrap extends lessc
 		}
 
 		// Build LESS
-		//if ($rebuild)
+		if ($rebuild)
 		{
 			// Get column configuration
 			$left_columns = 1;
