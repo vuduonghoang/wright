@@ -146,7 +146,7 @@ abstract class HtmlAdapterAbstract
 
 	public function getSections($matches)
 	{
-		$class = 'span'.$this->columns['main']->size;
+		$class = 'col-md-'.$this->columns['main']->size;
 		if (strpos($matches[1], 'class=')) {
 			preg_match('/class="(.*)"/i', $matches[1], $classes);
 			$class .= ' ' . $classes[1];
@@ -195,7 +195,7 @@ abstract class HtmlAdapterAbstract
 
 		$this->columns[$id]->exists = true;  // marks that column really exists
 
-		$class = 'span'.$this->columns[$id]->size;
+		$class = 'col-md-'.$this->columns[$id]->size;
 		if (strpos($matches[1], 'class=')) {
 			preg_match('/class="(.*)"/i', $matches[1], $classes);
 			$class .= ' ' . $classes[1];
