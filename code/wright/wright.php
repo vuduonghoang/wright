@@ -184,12 +184,12 @@ class Wright
 			$this->document->addScript($jquery);
 			$this->document->addScript($this->_urlJS . '/jquery-migrate.min.js');
 
-			// Load bootstrap JS
-			$this->addJSScript($this->_urlJS . '/bootstrap.min.js', true);
-
 			// Ensure that jQuery loads in noConflict mode to avoid mootools conflicts
 			$this->document->addScriptDeclaration('jQuery.noConflict();');
 		}
+
+		// Load bootstrap JS
+		$this->addJSScript($this->_urlJS . '/bootstrap.min.js', true);
 
 		if ($this->browser->isMobile() && !$this->browser->isTablet())
 		{
