@@ -73,12 +73,6 @@ class BuildBootstrap extends lessc
 
 			$this->setFormatter("compressed");
 
-			/*$this->setVariables(
-				array(
-					"leftColumns" => $left_columns,
-					"rightColumns" => $right_columns
-				));*/
-
 			if (is_file(JPATH_THEMES . '/' . $document->template . '/css/style.css'))
 			{
 				unlink(JPATH_THEMES . '/' . $document->template . '/css/style.css');
