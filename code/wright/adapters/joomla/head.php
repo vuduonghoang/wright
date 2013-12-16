@@ -32,6 +32,7 @@ class WrightAdapterJoomlaHead
 		$doc->addHeadLink($faviconsurl . 'favicon-32x32.png', 'icon', 'rel', array('sizes' => '32x32', 'type' => 'image/png'));
 		$doc->addHeadLink($faviconsurl . 'favicon-96x96.png', 'icon', 'rel', array('sizes' => '96x96', 'type' => 'image/png'));
 		$doc->addHeadLink($faviconsurl . 'favicon-160x160.png', 'icon', 'rel', array('sizes' => '160x160', 'type' => 'image/png'));
+		$doc->addHeadLink($faviconsurl . 'favicon-196x196.png', 'icon', 'rel', array('sizes' => '196x196', 'type' => 'image/png'));
 
 		$doc->setMetaData('msapplication-TileColor', '#b91d47');
 		$doc->setMetaData('msapplication-TileImage', $faviconsurl . 'mstile-144x144.png');
