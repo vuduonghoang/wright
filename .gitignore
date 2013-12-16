@@ -35,3 +35,6 @@ nbproject
 .idea
 node_modules
 dist
+
+# Phing build script
+build.properties
