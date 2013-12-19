@@ -26,7 +26,7 @@ class WrightAdapterJoomlaLogo
 
 		if ($doc->browser->isMobile() && !$doc->browser->isTablet())
 		{
-			$hiddenmodule = $wr->params->get('hiddenmodule', array());
+			$hiddenmodule = $doc->params->get('hiddenmodule', array());
 
 			$modules = JModuleHelper::getModules($name);
 
