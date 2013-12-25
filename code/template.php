@@ -1,8 +1,8 @@
 <?php
 /**
- * @copyright      Copyright (C) 2013 redComponent
- * @author         redComponent
- * @package        Template
+ * @package    RedCOMPONENT.Template.Framework.
+ *
+ * @copyright  redCOMPONENT 2013 All Rights Reserved.
  *
  */
 
@@ -27,7 +27,7 @@ defined('_JEXEC') or die('Restricted access');
 
 		<w:head />
 	</head>
-	<body <?php if ($bodyclass != "") : ?> class="<?php echo $bodyclass ?>"<?php endif; ?>>
+	<body <?php if ($bodyclass != "") : ?> class = "<?php echo $bodyclass ?>" <?php endif; ?>>
 	<?php if ($this->countModules('toolbar')) : ?>
 		<!-- menu -->
 		<w:nav containerClass="<?php echo $containerClass ?>" rowClass="<?php echo $gridMode; ?>" wrapClass="navbar-fixed-top navbar-inverse" type="toolbar" name="toolbar" />
@@ -123,7 +123,6 @@ defined('_JEXEC') or die('Restricted access');
 				<?php if ($this->countModules('footer')) : ?>
 					<w:module type="<?php echo $gridMode; ?>" name="footer" chrome="wrightflexgrid" />
 				<?php endif; ?>
-
 			</div>
 		</footer>
 	</div>
