@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5" type="template" method="upgrade" client="site">
 	<name>%%name%%</name>
-	<creationDate>March 2013</creationDate>
+	<creationDate>Dec 2013</creationDate>
 	<author>redCOMPONENT</author>
 	<authorEmail>mail@redcomponent.com</authorEmail>
 	<authorUrl>http://www.redcomponent.com</authorUrl>
