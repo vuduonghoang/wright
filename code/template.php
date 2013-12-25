@@ -9,22 +9,6 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Get the bootstrap row mode ( row / row-fluid )
-$gridMode = $this->params->get('bs_rowmode', 'row-fluid');
-$containerClass = 'container';
-
-if ($gridMode == 'row-fluid')
-{
-	$containerClass = 'container-fluid';
-}
-
-$bodyclass = "";
-
-if ($this->countModules('toolbar'))
-{
-	$bodyclass = "toolbarpadding";
-}
-
 ?>
 <!DOCTYPE html>
 	<html>
